@@ -324,6 +324,7 @@ ALTER TABLE new_listings
 MODIFY COLUMN price DECIMAL(10,2)
 
 
+
 ---------------------------------------------------------------------------------------------------
 -- Double check empties
 ---------------------------------------------------------------------------------------------------
@@ -366,7 +367,7 @@ FROM new_listings;
 SELECT *
 FROM new_listings
 WHERE price < (SELECT AVG(price) - (3 * STDDEV(price)) FROM new_listings)
-	OR price > (SELECT AVG(price) + (4 * STDDEV(price)) FROM new_listings)
+	OR price > (SELECT AVG(price) + (3 * STDDEV(price)) FROM new_listings)
 
 -- There are a couple of suspicious listings 41472650 and 37786374. 1 bedroom apartments in Melbourne City.
 -- Everything else seems fine. I will leave the two listings above but they raise concern to be flagged.
@@ -429,12 +430,10 @@ ALTER TABLE cleaned_listings
 ---------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
--- Now we can get an idea of the data. Averages, counts and outliers, etc.
 ---------------------------------------------------------------------------------------------------
 
 
 
-SELECT name, price, room_type, bedrooms from new_listings where price < 40 AND room_type  LIKE '%Entire home%' AND bedrooms > 1
--- probably need to disregard some of these
+
 
 
