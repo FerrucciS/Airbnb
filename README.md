@@ -41,7 +41,7 @@ We want to clean the data to remove duplicate rows, fix or remove incorrect data
 
 ### 1. Remove Columns
 
-The dataset has 75 columns, of which we only need a subset of these. Create a new dataset with the following columns
+The dataset has 75 columns, of which we only need a subset of these. Create a new dataset - "new_listings" - with the following columns
 
 ![Column](Images/Columns.png)
 
@@ -53,3 +53,86 @@ As the id is unique for each listing, we look for repeated id's to single out du
 
 ![Duplicates](Images/Duplicate.png)
 
+
+We find no duplicates.
+
+
+### 3. Missing Values
+
+A straight forward querey iforms us of empty, null, or incorrect values - by incorrect here i mean nonsensical inputs e.g. negative pricing. What we find is empty cells in the following columns
+1. description - 124 empty
+2. neighbourhood - 3010 empty
+3. bathrooms_text - 8 empty
+4. bedrooms - 2972 empty
+5. amenities - 7 empty
+
+The only columns we can look at filling in missing values is for neighbourhood, bathrooms_text, and bedrooms as the name and description column seem to contain information about these.
+
+#### Neighbourhood
+
+A quick inspection of the name column shows that many listings contain the neighbourhood of the listings. The neighbourhoods are specified as "in 'sububrb, Melbourne,...'" and are then ended with "·". With this information we can update our table as follows
+
+![Neighbourhood](Images/Update_neighbourhood.png)
+
+
+We only want the neighbourhood and not the city and state. Therefore, we need to keep the neighbourhood and discard the rest as now they are of the form "Neighbourhod, City, State" or "Neighbourhod. City. State". This is achieved as follows
+
+
+![Seperate_city_state](Images/Seperate_city_state.png)
+
+After a quick inspection of the neighbourhood column, we notice two things that need mending and some additional comments.
+- A few are left as "suburb/City" or "Suburb/City"
+- There are listings of the same neighbourhood such as "St Kilda" and "Saint Kilda".
+- To be extra careful we apply the TRIM function to remove any white space before or after the neighbourhood names.
+- Don't need to worry about capitalisation as SQL and Tableau where we will analyse the data are not case sensitive.
+
+  The first two issues are mended as follows
+
+  
+
+![Image](Images/stKilda.png)
+
+This concludes the cleaning of the neighbourhood column.
+
+
+#### Bathrooms_text
+
+Here we have 8 missing values. We first look at the description and name columns as we did earlier to see if these contain information. Running a querey to see if the name or description columns contain the word 'bath' for these empty rows proves ineffective, and demonstrates they do not contain any information about the bathroom.
+
+As There are only 8 of these missing values it is worth visiting the listing_url to set the missing data. 
+
+The following querey explains the findings in the lisitng_url
+
+
+![Bathrooms](Images/Bathrooms.png)
+
+The listing with Id '38883439' had no information or photos but from the specified 2-bedroom townhouse I guessed 1 bathroom. Furthermore, Id '34046314' was outdated with the url taken down so I removed this row.
+
+
+#### Bedrooms
+
+There are 2972 empty rows in the bedrooms column. We first begin by checking the name column in each row for the words 'studio', 'bedroom', and 'bedrooms' and fill in the appearing number of bedrooms in the correct column. 
+
+![Bedroomsn](Images/Bedrooms_name.png)
+
+There were 16 rows where the name did not contain information about the bedrooms. Thus, these values for the bedrooms are now Null. When checking these 16 rows, 4 are studios as described in the desciption 
+
+
+![Bedroomsdesc](Images/Bedrooms_desc.png)
+
+
+The remaining 12 are filled in by visiting the listing_url. 
+
+
+![Bedroomsn](Images/Bedrooms_url.png)
+
+
+When visiting the urls the following listing Id's (22488519, 40377799, 40510306, 46096289) are outdated and are deleted from the dataset.
+
+
+Lastly, we dont need the word 'bedroom(s)' after the number so we will remove this from each row.
+
+![BedroomsRemove](Images/Remove_bedroom.png)
+
+
+### 4. Data Type Conversions
