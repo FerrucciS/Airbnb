@@ -66,7 +66,7 @@ FROM new_listings
 
 SELECT *
 FROM duplicates
-WHERE row_num > 1
+WHERE row_num > 1;
    
 
 ---------------------------------------------------------------------------------------------------
