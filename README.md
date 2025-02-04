@@ -51,7 +51,7 @@ The dataset has 75 columns, of which we only need a subset of these. Create a ne
 As the id is unique for each listing, we look for repeated id's to single out duplicate rows and remove them from the new dataset new_listings.
 
 
-![Duplicates](Images/Duplicate.png)
+![Duplicates](Images/Duplicates2.png)
 
 
 We find no duplicates.
@@ -136,3 +136,80 @@ Lastly, we dont need the word 'bedroom(s)' after the number so we will remove th
 
 
 ### 4. Data Type Conversions
+
+
+We now want to ensure we have correct data types for each column. This is essential when performing analysis of the data. The data types are shown below
+
+
+![DataTypes](Images/TypeData.png)
+
+
+We change bedrooms from TEXT to INT and price from TEXT to DOUBLE. Moreover, for the price column we remove the substring '$'.
+
+
+### 5. Data Quality
+
+We will now look at some of the numerical columns and manually check some of the outliers to see if they represent natural variations or are sources of error.
+
+
+#### Prices
+
+We will look at price values that lie outside 3 standard deviations. Although, prices usually follow lognormal distributions with long right-tails we can still use the standard deviation as a threshold to check for outliers.
+
+![Pricessted](Images/PricingSTDEV.png)
+
+The result is 252 rows. There are a couple of suspicious listings, specifically 41472650 and 37786374 which are both 1 bedroom apartments in Melbourne. I will leave the two listings above but they raise concern to be flagged. The rest seem fine.
+
+
+#### Minimum Nights
+
+By following the above method for the required minimum nights stayed, we find 62 rows fall outside 3 standard deviations. There are 14 lisitngs above 365 days; the highest being 1125 days. These are unreasonable and I will put a max cap at 365 days and change these listings. Even 365 days seems unusually high, although this will serve as a cap.
+
+
+#### Bedrooms
+
+Again following the same method for bedrooms listings, we find the following errors
+
+- Id: 43760603 and 51095353 has 4 bedrooms not 14.
+- Id: 21750782 has 3 bedrooms not 11.
+- Id: 35821644 has 2 bedrooms not 11.
+
+  These listings are updated to the correct bedrooms.
+
+
+
+## Analysis
+
+Here we look at the seven questions stated in the problem statement.
+
+### 1. Who are the top 10 hosts with the highest number of listings?
+
+
+
+### 2. What are the top 10 neighbourhoods with the most listings?
+
+
+
+### 3. What is the distribution of listings by the number of bedrooms?
+
+
+
+### 4. And room type?
+
+
+
+### 5. Which room types have the best reviews?
+
+
+
+### 6. What are the most common minimum-nights required?
+
+
+
+### 7. What is the average price per bedroom and room type?
+
+
+
+
+
+## Caveats and
