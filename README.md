@@ -41,6 +41,15 @@ We want to clean the data to remove duplicate rows, fix or remove incorrect data
 
 ### 1. Remove Columns
 
-The dataset has 75 columns, of which we only need a subset of these. 
+The dataset has 75 columns, of which we only need a subset of these. Create a new dataset with the following columns
 
-![Column](image.jpg)
+![Column](Images/Columns.png)
+
+
+### 2. Remove Duplicate Rows
+
+As the id is unique for each listing, we look for repeated id's to single out duplicate rows and remove them from the new dataset new_listings.
+
+
+![Duplicates](Images/Duplicate.png)
+
