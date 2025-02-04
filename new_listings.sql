@@ -138,8 +138,9 @@ FROM new_listings
 
 
 -- In the "name" column we have info about suburbs. Let's unpack this info.
-SELECT name, SUBSTRING(name, LOCATE('in', name) + LENGTH('in') + 1, LOCATE('·', name) - LOCATE('in', name) - 4)
+SELECT name, SUBSTRING(name, LOCATE(' in', name) + LENGTH(' in') + 1, LOCATE('·', name) - LOCATE(' in', name) - 4),
 FROM new_listings
+WHERE neighbourhood = ''
 -- This returns the suburbs from the 'name' column.
 -- I noticed after "in" there was the suburb. Then immediately after the suburb there was "·". This allowed me to use SUBSTRING to extract the string starting after "in" but before ·.
 
@@ -147,7 +148,7 @@ FROM new_listings
 -- Update
 UPDATE new_listings
 SET
-	neighbourhood = CONCAT(SUBSTRING(name, LOCATE('in', name) + LENGTH('in') + 1, LOCATE('·', name) - LOCATE('in', name) - 4), ', Victoria, Australia')
+	neighbourhood = SUBSTRING(name, LOCATE(' in', name) + LENGTH(' in') + 1, LOCATE('·', name) - LOCATE(' in', name) - 4)
 WHERE neighbourhood = ''
 
 
@@ -167,25 +168,32 @@ SET
 SELECT neighbourhood FROM new_listings
 
 
--- Some still are of the form "in ..." or "home in ..." becasue have names like "tiny home in..." theres an "in" in "tiny" before "in suburb"
--- Let's see them.
-SELECT id, neighbourhood, council,
-	SUBSTRING(neighbourhood, LOCATE('in ', neighbourhood) + LENGTH('in '))
-FROM new_listings
-WHERE neighbourhood REGEXP ' in ' OR neighbourhood REGEXP '^in '
-
-
--- UPDATE
+-- By inspection there are still some left as "suburb/Melbourne" or "suburb (Melbourne)". Lets change these
 UPDATE new_listings
 SET
-	neighbourhood = SUBSTRING(neighbourhood, LOCATE('in ', neighbourhood) + LENGTH('in '))
-WHERE neighbourhood REGEXP ' in ' OR neighbourhood REGEXP '^in '
+	neighbourhood = SUBSTRING(neighbourhood, 1, 
+		LEAST(
+			IF(LOCATE('(', neighbourhood) > 1, LOCATE('(', neighbourhood) - 1, LENGTH(neighbourhood) + 1),
+            IF(LOCATE('/', neighbourhood) > 1, LOCATE('/', neighbourhood) - 1, LENGTH(neighbourhood) + 1)
+		) 
+	);
 
 
--- Finally, we have "st kilda" and Saint Kilda" these are the same
+
+-- We have "st kilda" and Saint Kilda" these are the same
 UPDATE new_listings
-SET neighbourhood = 'St Kilda'
-Where TRIM(neighbourhood) LIKE '%kilda'
+SET neighbourhood = CONCAT('St ', (SUBSTRING(neighbourhood, LOCATE('Saint ', neighbourhood))) )
+Where TRIM(neighbourhood) LIKE 'Saint %';
+
+
+-- Trim whitespace
+UPDATE new_listings
+SET neighbourhood = TRIM(neighbourhood)
+
+
+
+-- Check new. 
+SELECT neighbourhood FROM new_listings WHERE neighbourhood LIKE ''
 
 
 -------------------------------
@@ -279,7 +287,7 @@ SET bathrooms_text = CASE
     WHEN id = 43540050 THEN '1 shared bath'
 	ELSE bathrooms_text
 END
-WHERE TRIM(bathrooms_text) LIKE '';
+WHERE TRIM(bathrooms_text) LIKE ''; 
 -- id '38883439' had no information or photos but from the information 2 bedroom townhouse i guessed 1 bathroom.
 
 
