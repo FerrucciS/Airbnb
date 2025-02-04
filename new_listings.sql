@@ -182,6 +182,12 @@ SET
 WHERE neighbourhood REGEXP ' in ' OR neighbourhood REGEXP '^in '
 
 
+-- Finally, we have "st kilda" and Saint Kilda" these are the same
+UPDATE new_listings
+SET neighbourhood = 'St Kilda'
+Where TRIM(neighbourhood) LIKE '%kilda'
+
+
 -------------------------------
 -- bedrooms .
 
@@ -422,4 +428,5 @@ ALTER TABLE cleaned_listings
 
 SELECT name, price, room_type, bedrooms from new_listings where price < 40 AND room_type  LIKE '%Entire home%' AND bedrooms > 1
 -- probably need to disregard some of these
+
 
