@@ -27,6 +27,25 @@ With the problem statement established, we can break it down into smaller object
 ## Executive Summary
 
 
+This analysis explores key trends in Airbnb listings across Melbourne, focusing on host activity, neighborhood distribution, property characteristics, and pricing patterns. The findings reveal that while some hosts manage multiple properties, the majority of listings are spread across many individual hosts. The host with the most listings manages just over 100 properties, accounting for approximately 1% of the total.
+
+
+The Melbourne CBD has the highest concentration of listings, accounting for approximately 16.5% of the total. This is followed by Southbank and St Kilda with 5.1% and 4.4% of the total respectively.
+
+
+One-bedroom listings dominate the market, making up over half of all properties (~51.3%), while entire homes/apartments are by far the most common room type (~75.1%). Minimum-night stay requirements vary, but 2-night and 1-night stays account for over 62.5% of all listings.
+
+
+Price analysis indicates that studio apartments tend to have an average price increase of 8.4% and a median price increase of 10.5% compared to one-bedroom listings. This is likely due to their premium locations and/or shared accommodation in the latter category. Additionally, while prices increase with bedroom count, the presence of luxury listings skews the average price higher than the median, particularly for larger properties. However, this increase slows around five bedrooms with average and median price of $371 and $315, suggesting a potential pricing plateau for very large accommodations. 
+
+These insights can help hosts and potential guests understand market trends and pricing structures in Melbourne’s Airbnb landscape. The accompanying dashboard highlights key findings, providing an interactive view of listing distributions, pricing trends, and host activity.
+
+
+[Interactive dashboard](https://public.tableau.com/views/Visualisation_17382882758720/Dashboard1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
+![Dashboard](Images/Dashboard.png)
+
+
+
 
 ## Data Source
 
@@ -235,4 +254,3 @@ The analysis of average and median prices per number of bedrooms reveals an incr
 
 
 
-## Caveats and
