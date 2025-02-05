@@ -182,8 +182,9 @@ SET
 
 -- We have "st kilda" and Saint Kilda" these are the same
 UPDATE new_listings
-SET neighbourhood = CONCAT('St ', (SUBSTRING(neighbourhood, LOCATE('Saint ', neighbourhood))) )
+SET neighbourhood = CONCAT('St ', (SUBSTRING(neighbourhood, LOCATE('Saint ', neighbourhood) + LENGTH('Saint '))) )
 Where TRIM(neighbourhood) LIKE 'Saint %';
+
 
 
 -- Trim whitespace
