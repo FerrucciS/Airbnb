@@ -20,9 +20,8 @@ With the problem statement established, we can break it down into smaller object
 2. What are the top 10 neighbourhoods with the most listings?
 3. What is the distribution of listings by the number of bedrooms?
 4. And room type?
-5. Which room types have the best reviews?
-6. What are the most common minimum-nights required?
-7. What is the average price per bedroom and room type?
+5. What are the top 10 most common minimum-nights required?
+6. What is the average price per bedroom and room type?
 
 
 ## Executive Summary
@@ -184,31 +183,55 @@ Here we look at the seven questions stated in the problem statement.
 
 ### 1. Who are the top 10 hosts with the highest number of listings?
 
+The data shows that the top 10 hosts with the most listings are led by host 90729398, who has 109 listings (1.02% of the total). The second and third hosts, 279001183 and 1739996, are tied with 63 listings (0.59%). The remaining 7 hosts have fewer than 50 listings making up less than 0.5% of the total listings. The top 10 hosts are displayed in the following graph.
+
+
+![Top10Hosts](Images/TopHosts.png)
+
 
 
 ### 2. What are the top 10 neighbourhoods with the most listings?
+
+The data shows the top neighbourhood with the most listings is the suburb of Melbourne with 1763 listings (16.46% of total listings). this is followed by Southbank and St Kilda with 545 (5.09%) and 475 (4.44%) listings respectively. The remaining 7 listings are below 4% of the total listings.
+
+
+![Top10Suburbs](Images/TopSuburbs.png)
 
 
 
 ### 3. What is the distribution of listings by the number of bedrooms?
 
+The top bedroom listing frequency is 1 bedroom, making up 51.37% of the total listings. 2 bedrooms comes in second with 29.55%. 3,4,5 and 0 (studios) are each below 10% but above 1%. The frequency of listings with more than 5 bedrooms altogether make up less than 0.7% of the total listings and are outliers in the distribution and represent natural variations.
+
+
+![Top5Bedrooms](Images/TopBedrooms.png)
+
 
 
 ### 4. And room type?
 
+The data reveals Entire homes/Apartments make up 75.05% of listings. Private rooms are the second most common with a substantial decrease in listings: 23.38%. Shared rooms and hotel rooms are both less than 1% of listings as seen if the graph.
 
 
-### 5. Which room types have the best reviews?
+![Room-Type](Images/Room-Type.png)
 
 
 
-### 6. What are the most common minimum-nights required?
+### 5. What are the top 10 most common minimum-nights required?
 
+
+The most common minimum night stay requirement is 2 nights, making a total of 3,531 listings (32.98% of total). Following this is 1 night with 3168 listings (29.56%). The third most common is 3 nights with 1569 (14.65%). The remaining seven are all below 5%. Interestingly, these aren't a linear increase in minimum nights stayed. For example, after the sixth most common - 4 nights - is 14 days (1.65%) which marks a substantial increase in minimum nights requirement. The data shows that at most 6.5% of listings are long-term stays with a minimum night of 14 days or more; In the graph below these make up 3.23%.
+
+
+![MinNights](Images/MinNights.png)
 
 
 ### 7. What is the average price per bedroom and room type?
 
+The analysis of average and median prices per number of bedrooms reveals an increasing gap between the two as the number of bedrooms rises. This widening gap suggests the presence of high-value outliers, particularly in larger listings, which pull the average price upward while the median remains less affected. Notably, listings with 0 bedrooms (studio apartments) are priced higher than those with 1 bedroom, possibly due to premium locations or luxury studio accommodations and the inclusion of shared accomodation for 1 bedroom listings. Beyond 1 bedroom, prices steadily rise with increasing bedroom count but eventually plateau around 5 bedrooms, indicating a potential diminishing returns in pricing for larger listings.
 
+
+![AVGPrice](Images/AVGPrice.png)
 
 
 
